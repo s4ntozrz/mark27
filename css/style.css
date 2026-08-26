@@ -1,0 +1,162 @@
+:root {
+    --bg-color: #f4f4f5;
+    --toolbar-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #e4e4e7;
+    --primary-color: #18181b;
+    --page-bg: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--toolbar-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.topbar h1 { font-size: 1.25rem; font-weight: 600; }
+
+.toolbar { display: flex; gap: 1rem; align-items: center; }
+#word-count { font-size: 0.875rem; color: #71717a; }
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: #3f3f46; }
+.btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color); }
+.btn-secondary:hover { background-color: #f4f4f5; }
+
+/* Layout Principal */
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Editor */
+.editor-section {
+    flex: 1;
+    border-right: 1px solid var(--border-color);
+    background-color: white;
+}
+#markdown-input {
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    border: none;
+    resize: none;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    outline: none;
+}
+
+/* Prévia A4 (Tela) */
+.preview-section {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.a4-page {
+    background-color: var(--page-bg);
+    width: 210mm;
+    min-height: 297mm;
+    padding: 2.5cm; /* Margem acadêmica padrão */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    /* Tipografia Acadêmica */
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #000;
+}
+
+/* Estilos Internos do Documento (Markdown Renderizado) */
+.a4-page p {
+    text-align: justify;
+    margin-bottom: 1rem;
+    hyphens: auto;
+}
+
+.a4-page h1, .a4-page h2, .a4-page h3, .a4-page h4 {
+    font-family: "Georgia", "Times New Roman", serif;
+    color: #000;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.a4-page h1 { font-size: 18pt; text-align: center; font-weight: bold; }
+.a4-page h2 { font-size: 14pt; font-weight: bold; }
+.a4-page h3 { font-size: 12pt; font-style: italic; }
+
+.a4-page ul, .a4-page ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.a4-page li { margin-bottom: 0.3rem; text-align: justify; }
+
+.a4-page blockquote {
+    margin: 1rem 2rem;
+    font-size: 10pt;
+    font-style: italic;
+    text-align: justify;
+}
+
+/* Tabelas Acadêmicas */
+.a4-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 10pt;
+}
+
+.a4-page th, .a4-page td {
+    border: 1px solid #000;
+    padding: 0.5rem;
+    text-align: left;
+}
+.a4-page th { font-weight: bold; background-color: #fafafa; }
+
+/* Código */
+.a4-page pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 9pt;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+    border: 1px solid #ddd;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .editor-section { flex: none; height: 50vh; border-bottom: 1px solid var(--border-color); }
+    .a4-page { width: 100%; min-height: auto; padding: 1.5cm; }
+}

@@ -1,0 +1,53 @@
+/* Oculta tudo que não for o documento */
+.no-print {
+    display: none !important;
+}
+
+/* Reseta o fundo e containers */
+body, .container, .preview-section {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Configura a página PDF nativa */
+@page {
+    size: A4 portrait;
+    margin: 2.5cm; /* Margens aplicadas diretamente no PDF */
+}
+
+/* Ajusta o container do documento para impressão */
+.a4-page {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0 !important; /* Margem já gerenciada por @page */
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Prevenção de quebra de página inadequada (Órfãs/Viúvas) */
+.a4-page h1, .a4-page h2, .a4-page h3, .a4-page h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.a4-page p, .a4-page li {
+    orphans: 3;
+    widows: 3;
+}
+
+.a4-page table, .a4-page img, .a4-page blockquote, .a4-page pre {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Repete o cabeçalho da tabela se ela pular de página */
+.a4-page thead {
+    display: table-header-group;
+}
+.a4-page tr {
+    page-break-inside: avoid;
+}
