@@ -26,12 +26,20 @@ body {
     padding: 0.75rem 1.5rem;
     background-color: var(--toolbar-bg);
     border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap; /* Permite quebrar linha caso falte espaço */
+    gap: 1rem;
 }
 
-.topbar h1 { font-size: 1.25rem; font-weight: 600; }
+.topbar h1 { font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
 
-.toolbar { display: flex; gap: 1rem; align-items: center; }
-#word-count { font-size: 0.875rem; color: #71717a; }
+.toolbar { 
+    display: flex; 
+    gap: 0.75rem; 
+    align-items: center; 
+    flex-wrap: wrap; /* Botões quebram de linha no celular */
+}
+
+#word-count { font-size: 0.875rem; color: #71717a; margin-right: auto; }
 
 .btn {
     padding: 0.5rem 1rem;
@@ -40,6 +48,7 @@ body {
     cursor: pointer;
     border: none;
     transition: 0.2s;
+    white-space: nowrap; /* Evita que o texto do botão quebre no meio */
 }
 .btn-primary { background-color: var(--primary-color); color: white; }
 .btn-primary:hover { background-color: #3f3f46; }
@@ -58,10 +67,12 @@ body {
     flex: 1;
     border-right: 1px solid var(--border-color);
     background-color: white;
+    display: flex;
+    flex-direction: column;
 }
 #markdown-input {
     width: 100%;
-    height: 100%;
+    flex: 1;
     padding: 1.5rem;
     border: none;
     resize: none;
@@ -75,6 +86,7 @@ body {
 .preview-section {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden; /* Evita que a tela geral mova para os lados */
     padding: 2rem;
     display: flex;
     justify-content: center;
@@ -84,9 +96,11 @@ body {
 .a4-page {
     background-color: var(--page-bg);
     width: 210mm;
+    max-width: 100%; /* Garante que não ultrapasse a tela */
     min-height: 297mm;
     padding: 2.5cm; /* Margem acadêmica padrão */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow-wrap: break-word; /* Quebra palavras muito longas */
     
     /* Tipografia Acadêmica */
     font-family: "Georgia", "Times New Roman", serif;
@@ -129,10 +143,15 @@ body {
 }
 
 /* Tabelas Acadêmicas */
+.a4-page-table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Tabela rola pro lado se for maior que o papel */
+    margin-bottom: 1.5rem;
+}
+
 .a4-page table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1.5rem;
     font-size: 10pt;
 }
 
@@ -151,12 +170,75 @@ body {
     font-size: 9pt;
     margin-bottom: 1rem;
     white-space: pre-wrap;
+    word-break: break-word;
     border: 1px solid #ddd;
+    overflow-x: auto; /* Código rola pro lado no celular */
 }
 
-/* Responsividade Mobile */
+/* =========================================
+   RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS
+   ========================================= */
 @media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .editor-section { flex: none; height: 50vh; border-bottom: 1px solid var(--border-color); }
-    .a4-page { width: 100%; min-height: auto; padding: 1.5cm; }
+    /* Ajusta a barra do topo */
+    .topbar {
+        flex-direction: column;
+        padding: 1rem;
+        align-items: stretch;
+    }
+    
+    .topbar h1 {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Ajusta os botões para caberem lado a lado ou quebrarem */
+    .toolbar {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .btn {
+        flex: 1 1 auto; /* Botões crescem para preencher o espaço */
+        text-align: center;
+    }
+
+    #word-count {
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Layout do documento */
+    .container { 
+        flex-direction: column; 
+    }
+    
+    /* Editor menor, e fonte em 16px impede o "Zoom Automático" do iOS/Android */
+    .editor-section { 
+        flex: none; 
+        height: 40vh; 
+        border-right: none;
+        border-bottom: 1px solid var(--border-color); 
+    }
+    #markdown-input {
+        font-size: 16px; /* Fundamental para evitar o zoom ao digitar no celular */
+        padding: 1rem;
+    }
+
+    /* Pré-visualização ajustada */
+    .preview-section { 
+        padding: 0.5rem; /* Menos margem vazia no celular */
+    }
+    
+    .a4-page { 
+        width: 100%; 
+        min-height: auto; 
+        padding: 1rem; /* Menos margem interna para sobrar mais espaço pro texto */
+    }
+    
+    /* Oculta margens laterais enormes do blockquote no celular */
+    .a4-page blockquote {
+        margin: 1rem;
+    }
 }
