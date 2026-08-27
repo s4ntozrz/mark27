@@ -1,10 +1,9 @@
-// Wrapper para o Marked.js
 const MarkdownEngine = {
     init: function() {
         if (typeof marked !== 'undefined') {
             marked.setOptions({
-                breaks: true, // Permite quebra de linha com enter simples
-                gfm: true,    // GitHub Flavored Markdown (tabelas, etc)
+                breaks: true,
+                gfm: true,
             });
         }
     },
