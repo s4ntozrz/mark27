@@ -15,7 +15,7 @@ body, .container, .preview-section {
 /* Configura a página PDF nativa */
 @page {
     size: A4 portrait;
-    margin: 2.0cm; /* Margens aplicadas diretamente no PDF */
+    margin: 2.5cm; /* Margens aplicadas diretamente no PDF */
 }
 
 /* Ajusta o container do documento para impressão */
