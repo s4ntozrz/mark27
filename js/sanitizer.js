@@ -10,8 +10,6 @@ const Sanitizer = {
             });
         }
         console.warn("DOMPurify não carregado. Sanitização falhou.");
-        const temp = document.createElement('div');
-        temp.textContent = dirtyHtml;
-        return `<pre>${temp.innerHTML}</pre>`; // Fallback seguro sem renderizar HTML bruto
+        return dirtyHtml; // Fallback inseguro apenas para dev offline sem cache
     }
 };
