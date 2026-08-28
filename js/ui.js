@@ -1,4 +1,3 @@
-// Gerencia as interações da interface de usuário
 const UI = {
     elements: {
         input: document.getElementById('markdown-input'),
