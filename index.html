@@ -1,41 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark! Conversor MD to PDF</title>
+    <title>Md2Acad - Conversor Markdown para PDF</title>
+    
+    <!-- Fontes Modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/print.css" media="print">
+    
+    <!-- Bibliotecas Externas -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <!-- Ícones Modernos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <header class="topbar no-print">
-        <h1>Mark!</h1>
-        <div class="toolbar">
-            <span id="word-count">0 palavras</span>
-            <button id="btn-clear" class="btn btn-secondary">Limpar</button>
-            <button id="btn-import" class="btn btn-secondary">Importar .md</button>
-            <input type="file" id="file-input" accept=".md, .txt" style="display: none;">
-            <button id="btn-print" class="btn btn-primary">Gerar PDF</button>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="editor-section no-print">
-            <textarea id="markdown-input" placeholder="Cole ou digite seu Markdown aqui..."></textarea>
-        </section>
-
-        <section class="preview-section">
-            <div id="document-preview" class="a4-page">
+    <div class="app-wrapper">
+        <header class="topbar no-print">
+            <div class="brand">
+                <div class="logo-icon"><i data-lucide="file-text"></i></div>
+                <h1>Md2Acad</h1>
             </div>
-        </section>
-    </main>
+            
+            <div class="toolbar">
+                <span id="word-count">0 palavras</span>
+                
+                <div class="divider"></div>
+                
+                <button id="btn-theme" class="btn btn-icon" title="Alternar Tema">
+                    <i data-lucide="sun" id="theme-icon"></i>
+                </button>
+                <button id="btn-toggle-preview" class="btn btn-secondary" title="Ocultar/Mostrar Prévia">
+                    <i data-lucide="layout-panel-left"></i> <span class="btn-text">Prévia</span>
+                </button>
+                <button id="btn-save-md" class="btn btn-secondary" title="Salvar arquivo Markdown">
+                    <i data-lucide="download"></i> <span class="btn-text">Salvar .md</span>
+                </button>
+                
+                <div class="divider"></div>
 
+                <button id="btn-import" class="btn btn-secondary" title="Importar">
+                    <i data-lucide="folder-open"></i>
+                </button>
+                <button id="btn-clear" class="btn btn-secondary" title="Limpar Tudo">
+                    <i data-lucide="trash-2"></i>
+                </button>
+                <input type="file" id="file-input" accept=".md, .txt" style="display: none;">
+                
+                <button id="btn-print" class="btn btn-primary">
+                    <i data-lucide="printer"></i> <span class="btn-text">Gerar PDF</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Área do Editor -->
+            <section class="editor-section no-print">
+                <div class="section-header">
+                    <h2>Editor Markdown</h2>
+                </div>
+                <textarea id="markdown-input" placeholder="Comece a digitar seu documento acadêmico aqui..."></textarea>
+            </section>
+
+            <!-- Área de Pré-visualização -->
+            <section class="preview-section" id="preview-container">
+                <div class="section-header no-print">
+                    <h2>Visualização do Documento</h2>
+                </div>
+                <div class="preview-scroll">
+                    <div id="document-preview" class="a4-page">
+                        <!-- Conteúdo renderizado aparecerá aqui -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/sanitizer.js"></script>
     <script src="js/markdown.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/firebase-config.js"></script>
 </body>
 </html>

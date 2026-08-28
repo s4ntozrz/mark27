@@ -1,14 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Renderiza os ícones do Lucide SVG
+    UI.initIcons();
+    
     MarkdownEngine.init();
+    
+    // Carrega preferências
+    UI.loadTheme();
+    UI.loadPreviewState();
 
     const CACHE_KEY = 'md2acad_autosave';
 
+    // Recupera texto salvo
     const savedText = localStorage.getItem(CACHE_KEY) || "";
     if (savedText) {
         UI.elements.input.value = savedText;
         processMarkdown();
     } else {
-        const initialText = `# Exemplo de Documento Acadêmico\n\nEste é um parágrafo justificado para demonstração. A formatação deve ser limpa e direta, facilitando a leitura e a conversão para PDF com texto real.\n\n## Subtítulo Importante\n\n- Lista de itens;\n- Segundo item;\n  - Item aninhado.\n\n### Tabela de Dados\n\n| Variável | Valor | Observação |\n|----------|-------|------------|\n| Alpha    | 0.95  | Controle   |\n| Beta     | 1.20  | Tratamento |`;
+        const initialText = `# Documento Acadêmico\n\nEste é um parágrafo justificado para demonstração. O design da interface agora reflete um aplicativo nativo moderno em Modo Escuro Absoluto.\n\n## Subtítulo Importante\n\n- Lista de itens;\n- Segundo item;\n  - Item aninhado.\n\n### Tabela de Dados\n\n| Variável | Valor | Observação |\n|----------|-------|------------|\n| Alpha    | 0.95  | Controle   |\n| Beta     | 1.20  | Tratamento |`;
         UI.elements.input.value = initialText;
         processMarkdown();
     }
@@ -47,5 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         e.target.value = '';
+    });
+
+    UI.elements.btnTheme.addEventListener('click', () => {
+        UI.toggleTheme();
+    });
+
+    UI.elements.btnTogglePreview.addEventListener('click', () => {
+        UI.togglePreview();
+    });
+
+    UI.elements.btnSaveMd.addEventListener('click', () => {
+        const text = UI.elements.input.value;
+        if(text.trim() === '') {
+            alert('O documento está vazio!');
+            return;
+        }
+        UI.downloadMarkdown(text);
     });
 });

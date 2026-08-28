@@ -1,227 +1,313 @@
+/* =========================================
+   VARIÁVEIS DE TEMA (Baseado nas referências)
+   ========================================= */
 :root {
-    --bg-color: #f4f4f5;
-    --toolbar-bg: #ffffff;
-    --text-color: #333333;
-    --border-color: #e4e4e7;
-    --primary-color: #18181b;
-    --page-bg: #ffffff;
+    /* Paleta Dark Absoluta (Padrão) */
+    --bg-app: #000000;
+    --surface-1: #111111;
+    --surface-2: #1a1a1a;
+    --border-color: #262626;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    
+    /* Botões */
+    --btn-secondary-bg: #1c1c1e;
+    --btn-secondary-hover: #2c2c2e;
+    --btn-primary-bg: #ffffff;
+    --btn-primary-text: #000000;
+    --btn-primary-hover: #e5e5e5;
+    
+    /* Editor */
+    --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-doc: "Times New Roman", Times, serif; /* Apenas no papel A4 */
 }
 
+[data-theme="light"] {
+    --bg-app: #f2f2f7;
+    --surface-1: #ffffff;
+    --surface-2: #f5f5f5;
+    --border-color: #e5e5ea;
+    --text-primary: #1c1c1e;
+    --text-secondary: #8e8e93;
+    
+    --btn-secondary-bg: #e5e5ea;
+    --btn-secondary-hover: #d1d1d6;
+    --btn-primary-bg: #1c1c1e;
+    --btn-primary-text: #ffffff;
+    --btn-primary-hover: #2c2c2e;
+}
+
+/* =========================================
+   ESTRUTURA BASE
+   ========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: var(--font-ui);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    transition: background-color 0.3s ease;
 }
 
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1600px;
+    height: 100vh;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* =========================================
+   TOPBAR
+   ========================================= */
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--toolbar-bg);
-    border-bottom: 1px solid var(--border-color);
+    background-color: var(--surface-1);
+    padding: 0.75rem 1.25rem;
+    border-radius: 100px; /* Estilo pílula moderna */
+    border: 1px solid var(--border-color);
     flex-wrap: wrap;
     gap: 1rem;
 }
 
-.topbar h1 { font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
 
-.toolbar { 
-    display: flex; 
-    gap: 0.75rem; 
-    align-items: center; 
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--btn-secondary-bg);
+    border-radius: 50%;
+}
+
+.topbar h1 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
-#word-count { font-size: 0.875rem; color: #71717a; margin-right: auto; }
-
-.btn {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+#word-count {
     font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--border-color);
+    margin: 0 0.5rem;
+}
+
+/* =========================================
+   BOTÕES (Estilo Nativo)
+   ========================================= */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 100px; /* Pill shape */
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-ui);
     cursor: pointer;
     border: none;
-    transition: 0.2s;
-    white-space: nowrap;
+    transition: all 0.2s ease;
 }
-.btn-primary { background-color: var(--primary-color); color: white; }
-.btn-primary:hover { background-color: #3f3f46; }
-.btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color); }
-.btn-secondary:hover { background-color: #f4f4f5; }
 
+.btn i { width: 18px; height: 18px; stroke-width: 2.2px; }
+
+.btn-primary {
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+.btn-primary:hover { background-color: var(--btn-primary-hover); }
+
+.btn-secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--text-primary);
+}
+.btn-secondary:hover { background-color: var(--btn-secondary-hover); }
+
+.btn-icon { padding: 0.6rem; border-radius: 50%; }
+
+/* =========================================
+   LAYOUT PRINCIPAL (Cards)
+   ========================================= */
 .container {
     display: flex;
     flex: 1;
+    gap: 1rem;
     overflow: hidden;
 }
 
-.editor-section {
+.editor-section, .preview-section {
     flex: 1;
-    border-right: 1px solid var(--border-color);
-    background-color: white;
     display: flex;
     flex-direction: column;
+    background-color: var(--surface-1);
+    border: 1px solid var(--border-color);
+    border-radius: 24px; /* Arredondamento acentuado igual à imagem */
+    overflow: hidden;
 }
+
+.section-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.section-header h2 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Ocultar prévia */
+.preview-section.hidden { display: none !important; }
+
+/* =========================================
+   EDITOR
+   ========================================= */
 #markdown-input {
-    width: 100%;
     flex: 1;
+    width: 100%;
     padding: 1.5rem;
     border: none;
     resize: none;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 14px;
-    line-height: 1.5;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.6;
     outline: none;
 }
 
-.preview-section {
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+/* =========================================
+   DOCUMENTO A4 (Prévia)
+   ========================================= */
+.preview-scroll {
     flex: 1;
     overflow-y: auto;
-    overflow-x: hidden;
     padding: 2rem;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    background-color: var(--surface-2);
 }
 
+/* O Papel continua branco porque é uma visualização de impressão real */
 .a4-page {
-    background-color: var(--page-bg);
+    background-color: #ffffff;
+    color: #000000;
     width: 210mm;
     max-width: 100%;
     min-height: 297mm;
     padding: 2.5cm;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow-wrap: break-word; /* Quebra palavras muito longas */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 4px;
     
-    font-family: "Georgia", "Times New Roman", serif;
+    font-family: var(--font-doc);
     font-size: 11pt;
     line-height: 1.6;
-    color: #000;
 }
 
-.a4-page p {
-    text-align: justify;
-    margin-bottom: 1rem;
-    hyphens: auto;
-}
-
-.a4-page h1, .a4-page h2, .a4-page h3, .a4-page h4 {
-    font-family: "Georgia", "Times New Roman", serif;
-    color: #000;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-}
-
-.a4-page h1 { font-size: 16pt; text-align: center; font-weight: bold; }
+.a4-page p { text-align: justify; margin-bottom: 1rem; }
+.a4-page h1, .a4-page h2, .a4-page h3 { color: #000; margin-top: 1.5rem; margin-bottom: 0.75rem; line-height: 1.3; }
+.a4-page h1 { font-size: 18pt; text-align: center; font-weight: bold; }
 .a4-page h2 { font-size: 14pt; font-weight: bold; }
 .a4-page h3 { font-size: 12pt; font-style: italic; }
-
-.a4-page ul, .a4-page ol {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-}
-
+.a4-page ul, .a4-page ol { margin-bottom: 1rem; padding-left: 2rem; }
 .a4-page li { margin-bottom: 0.3rem; text-align: justify; }
+.a4-page blockquote { margin: 1rem 2rem; border-left: 2px solid #000; padding-left: 1rem; font-style: italic; }
+.a4-page table { width: 100%; border-collapse: collapse; font-size: 10.5pt; margin-bottom: 1.5rem; }
+.a4-page th, .a4-page td { border: 1px solid #000; padding: 0.5rem; text-align: left; }
+.a4-page th { font-weight: bold; background-color: #f4f4f5; }
+.a4-page pre { background-color: #f8f9fa; border: 1px solid #ddd; padding: 1rem; font-family: monospace; font-size: 9.5pt; overflow-x: auto; margin-bottom: 1rem; }
 
-.a4-page blockquote {
-    margin: 1rem 2rem;
-    font-size: 10pt;
-    font-style: italic;
-    text-align: justify;
-}
-
-.a4-page-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 1.5rem;
-}
-
-.a4-page table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 10pt;
-}
-
-.a4-page th, .a4-page td {
-    border: 1px solid #000;
-    padding: 0.5rem;
-    text-align: left;
-}
-.a4-page th { font-weight: bold; background-color: #fafafa; }
-
-.a4-page pre {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    font-family: monospace;
-    font-size: 9pt;
-    margin-bottom: 1rem;
-    white-space: pre-wrap;
-    word-break: break-word;
-    border: 1px solid #ddd;
-    overflow-x: auto;
-}
-
-@media (max-width: 768px) {
+/* =========================================
+   MOBILE
+   ========================================= */
+@media (max-width: 850px) {
+    .app-wrapper { padding: 0.5rem; gap: 0.5rem; }
+    
     .topbar {
+        border-radius: 20px;
         flex-direction: column;
-        padding: 1rem;
-        align-items: stretch;
+        align-items: center; /* Centraliza o conteúdo no mobile */
+        padding: 1rem 0.5rem;
     }
     
-    .topbar h1 {
-        text-align: center;
-        margin-bottom: 0.5rem;
-    }
-
-    .toolbar {
-        justify-content: center;
+    .brand { justify-content: center; margin-bottom: 0.5rem; }
+    
+    .toolbar { 
+        justify-content: center; 
+        gap: 0.4rem; /* Espaço menor e mais elegante entre os botões */
         width: 100%;
+        flex-wrap: wrap; /* Permite quebrar a linha em telas muito pequenas */
     }
     
-    .btn {
-        flex: 1 1 auto;
-        text-align: center;
-    }
-
-    #word-count {
-        width: 100%;
-        text-align: center;
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    .container { 
-        flex-direction: column; 
+    .divider { display: none; }
+    #word-count { width: 100%; text-align: center; margin-bottom: 0.5rem; }
+    
+    /* Oculta o texto de todos os botões no celular, exceto o de PDF */
+    .btn .btn-text { display: none; } 
+    
+    /* Transforma os botões secundários em círculos pequenos e perfeitos */
+    .btn { 
+        flex: 0 0 auto; /* Impede totalmente que os botões estiquem */
+        width: 44px;    /* Largura fixa (padrão de toque iOS/Android) */
+        height: 44px;   /* Altura fixa */
+        padding: 0;     /* Remove o espaçamento interno que deformava o botão */
+        border-radius: 50%; /* Círculo perfeito */
     }
     
-    .editor-section { 
-        flex: none; 
-        height: 40vh; 
-        border-right: none;
-        border-bottom: 1px solid var(--border-color); 
-    }
-    #markdown-input {
-        font-size: 16px;
-        padding: 1rem;
-    }
-
-    .preview-section { 
-        padding: 0.5rem;
+    /* O botão de Gerar PDF volta a ser uma pílula compacta e adaptável */
+    #btn-print { 
+        width: auto;
+        padding: 0 1.25rem;
+        border-radius: 100px; /* Formato pílula */
     }
     
-    .a4-page { 
-        width: 100%; 
-        min-height: auto; 
-        padding: 1rem;
+    #btn-print .btn-text { 
+        display: inline; 
+        white-space: nowrap; /* Força o texto "Gerar PDF" a ficar em uma única linha */
     }
     
-    .a4-page blockquote {
-        margin: 1rem;
-    }
+    .container { flex-direction: column; }
+    .editor-section { height: 40vh; flex: none; border-radius: 20px; }
+    .preview-section { border-radius: 20px; }
+    
+    #markdown-input { font-size: 16px; padding: 1rem; }
+    .preview-scroll { padding: 1rem; }
+    .a4-page { padding: 1.5cm; border-radius: 0; }
 }
