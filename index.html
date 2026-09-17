@@ -17,14 +17,14 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <!-- Ícones Modernos -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 <body>
     <div class="app-wrapper">
         <header class="topbar no-print">
             <div class="brand">
-                <div class="logo-icon"><i data-lucide="file-text"></i></div>
-                <h1>Md2Acad</h1>
+                <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h4M10 12h5m-5 4h5"/></svg></div>
+                <div><h1>Md2Acad<span class="brand-dot">.</span></h1><p class="brand-caption">ESCREVA. ORGANIZE. PUBLIQUE.</p></div>
             </div>
             
             <div class="toolbar">
@@ -32,28 +32,28 @@
                 
                 <div class="divider"></div>
                 
-                <button id="btn-theme" class="btn btn-icon" title="Alternar Tema">
-                    <i data-lucide="sun" id="theme-icon"></i>
+                <button id="btn-theme" aria-label="Alternar tema" class="btn btn-icon" title="Alternar Tema">
+                    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
                 </button>
-                <button id="btn-toggle-preview" class="btn btn-secondary" title="Ocultar/Mostrar Prévia">
-                    <i data-lucide="layout-panel-left"></i> <span class="btn-text">Prévia</span>
+                <button aria-controls="preview-container" aria-expanded="true" id="btn-toggle-preview" aria-label="Mostrar ou ocultar prévia" class="btn btn-secondary" title="Ocultar/Mostrar Prévia">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M12 4v16"/></svg> <span class="btn-text">Prévia</span>
                 </button>
-                <button id="btn-save-md" class="btn btn-secondary" title="Salvar arquivo Markdown">
-                    <i data-lucide="download"></i> <span class="btn-text">Salvar .md</span>
+                <button id="btn-save-md" aria-label="Salvar Markdown" class="btn btn-secondary" title="Salvar arquivo Markdown">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg> <span class="btn-text">Salvar .md</span>
                 </button>
                 
                 <div class="divider"></div>
 
-                <button id="btn-import" class="btn btn-secondary" title="Importar">
-                    <i data-lucide="folder-open"></i>
+                <button id="btn-import" aria-label="Importar arquivo" class="btn btn-secondary" title="Importar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5h6l2 3h9v3M3 8l2 12h14l3-9H7L5 20"/></svg>
                 </button>
-                <button id="btn-clear" class="btn btn-secondary" title="Limpar Tudo">
-                    <i data-lucide="trash-2"></i>
+                <button id="btn-clear" aria-label="Limpar documento" class="btn btn-secondary" title="Limpar Tudo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg>
                 </button>
                 <input type="file" id="file-input" accept=".md, .txt" style="display: none;">
                 
-                <button id="btn-print" class="btn btn-primary">
-                    <i data-lucide="printer"></i> <span class="btn-text">Gerar PDF</span>
+                <button id="btn-print" aria-label="Gerar PDF" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7z"/><path d="M17 11h.01"/></svg> <span class="btn-text">Gerar PDF</span>
                 </button>
             </div>
         </header>
@@ -62,15 +62,15 @@
             <!-- Área do Editor -->
             <section class="editor-section no-print">
                 <div class="section-header">
-                    <h2>Editor Markdown</h2>
+                    <h2><span class="status-dot"></span> Editor Markdown</h2><span class="panel-meta">.md</span>
                 </div>
-                <textarea id="markdown-input" placeholder="Comece a digitar seu documento acadêmico aqui..."></textarea>
+                <textarea aria-label="Editor Markdown" spellcheck="true" id="markdown-input" placeholder="Comece a digitar seu documento acadêmico aqui..."></textarea>
             </section>
 
             <!-- Área de Pré-visualização -->
             <section class="preview-section" id="preview-container">
                 <div class="section-header no-print">
-                    <h2>Visualização do Documento</h2>
+                    <h2>Visualização do documento</h2><span class="panel-meta">A4 · RETRATO</span>
                 </div>
                 <div class="preview-scroll">
                     <div id="document-preview" class="a4-page">
